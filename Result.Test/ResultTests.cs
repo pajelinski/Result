@@ -28,11 +28,15 @@ namespace Result.Test
     [TestFixture]
     public class ResultTests
     {
+        public Result ReturnSuccessWithString(string value)
+        {
+            return ResultFactory.CreateSuccess(value);
+        }
+        
         [Test]
         public void GivenSuccess_IsSuccesShouldReturnTrue()
         {
-            const string response = "test";
-            var result = ResultFactory.CreateSuccess(response);
+            var result = ReturnSuccessWithString("test");
             Assert.That(result.IsSuccess, Is.True);
         }
     }
