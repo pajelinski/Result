@@ -42,8 +42,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Failure.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="ResultExtensions.cs" />
+    <Compile Include="ResultFactory.cs" />
     <Compile Include="ResultTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Success.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
