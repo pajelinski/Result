@@ -19,8 +19,11 @@ namespace Result.Test
 
     public class Success<T> : Result<T>
     {
+        private readonly T _value;
+
         public Success(T value)
         {
+            _value = value;
             IsSuccess = true;
         }
 
@@ -28,7 +31,7 @@ namespace Result.Test
 
         public T Unwrap()
         {
-            throw new NotImplementedException();
+            return _value;
         }
     }
 
@@ -45,6 +48,14 @@ namespace Result.Test
         {
             var result = ReturnSuccessWithString("test");
             Assert.That(result.IsSuccess, Is.True);
+        }
+        
+        [Test]
+        public void GivenSuccess_UnwrapShouldReturn_test()
+        {
+            const string expected = "test";
+            var result = ReturnSuccessWithString(expected);
+            Assert.That(result.Unwrap(), Is.EqualTo(expected));
         }
     }
 }
