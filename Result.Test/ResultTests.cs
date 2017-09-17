@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Result.Test
 {
@@ -7,15 +8,16 @@ namespace Result.Test
         public static Success<T> CreateSuccess<T>(T value)
         {
             return new Success<T>(value);
-        }  
+        }
     }
 
-    public interface Result
+    public interface Result<out T>
     {
         bool IsSuccess { get; }
-    } 
+        T Unwrap();
+    }
 
-    public class Success<T>: Result
+    public class Success<T> : Result<T>
     {
         public Success(T value)
         {
@@ -23,16 +25,21 @@ namespace Result.Test
         }
 
         public bool IsSuccess { get; }
+
+        public T Unwrap()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [TestFixture]
     public class ResultTests
     {
-        public Result ReturnSuccessWithString(string value)
+        public Result<string> ReturnSuccessWithString(string value)
         {
             return ResultFactory.CreateSuccess(value);
         }
-        
+
         [Test]
         public void GivenSuccess_IsSuccesShouldReturnTrue()
         {
