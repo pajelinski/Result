@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Failure.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="ResultExtensions.cs" />
     <Compile Include="ResultFactory.cs" />

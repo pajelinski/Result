@@ -1,10 +1,10 @@
 namespace Result.Test
 {
-    public class Failure<T>: Result<T>
+    public class Error<T>: Result<T>
     {
         private readonly string _erroMessage;
 
-        public Failure(string erroMessage)
+        public Error(string erroMessage)
         {
             IsSuccess = false;
             _erroMessage = erroMessage;

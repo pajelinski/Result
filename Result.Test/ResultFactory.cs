@@ -9,7 +9,7 @@
 
         public static Result<T> CreateFailure<T>(string errorMessage)
         {
-            return new Failure<T>(errorMessage);
+            return new Error<T>(errorMessage);
         }
     }
 }

@@ -14,11 +14,11 @@ namespace Result.Test
         }
 
         [Test]
-        public void GivenSuccess_UnwrapShouldReturn_test()
+        public void GivenSuccess_GetValueShouldReturn_test()
         {
             const string expected = "test";
-            var result = ReturnSuccessWithString(expected).ToSuccess();
-            Assert.That(result.Unwrap(), Is.EqualTo(expected));
+            var result = ReturnSuccessWithString(expected).GetValue();
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -29,23 +29,23 @@ namespace Result.Test
         }
 
         [Test]
-        public void GivenFailure_UnwrapShouldReturn_test()
+        public void GivenError_GetErrorShouldReturn_test()
         {
             const string expected = "test";
-            var result = ReturnFailureWithString(expected).ToFailure();
-            Assert.That(result.Unwrap(), Is.EqualTo(expected));
+            var result = ReturnFailureWithString(expected).GetError();
+            Assert.That(result, Is.EqualTo(expected));
         }
         
         [Test]
-        public void GivenFailure_WhenToSuccessIsCalled_ShouldThrowInvalidCastException()
+        public void GivenError_WhenGetValueIsCalled_ShouldThrowInvalidCastException()
         {
-            Assert.That(() => ReturnFailureWithString("").ToSuccess(), Throws.InstanceOf<InvalidCastException>());
+            Assert.That(() => ReturnFailureWithString("").GetValue(), Throws.InstanceOf<InvalidCastException>());
         }
         
         [Test]
-        public void GivenSuccess_WhenToFailureIsCalled_ShouldThrowInvalidCastException()
+        public void GivenSuccess_WhenGetErrorIsCalled_ShouldThrowInvalidCastException()
         {
-            Assert.That(() => ReturnSuccessWithString("").ToFailure(), Throws.InstanceOf<InvalidCastException>());
+            Assert.That(() => ReturnSuccessWithString("").GetError(), Throws.InstanceOf<InvalidCastException>());
         }
         
         private static Result<string> ReturnSuccessWithString(string value)
