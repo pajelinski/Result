@@ -36,6 +36,18 @@ namespace Result.Test
             Assert.That(result.Unwrap(), Is.EqualTo(expected));
         }
         
+        [Test]
+        public void GivenFailure_WhenToSuccessIsCalled_ShouldThrowInvalidCastException()
+        {
+            Assert.That(() => ReturnFailureWithString("").ToSuccess(), Throws.InstanceOf<InvalidCastException>());
+        }
+        
+        [Test]
+        public void GivenSuccess_WhenToFailureIsCalled_ShouldThrowInvalidCastException()
+        {
+            Assert.That(() => ReturnSuccessWithString("").ToFailure(), Throws.InstanceOf<InvalidCastException>());
+        }
+        
         private static Result<string> ReturnSuccessWithString(string value)
         {
             return ResultFactory.CreateSuccess(value);
