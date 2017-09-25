@@ -1,3 +1,5 @@
+using System;
+
 namespace Result.Test
 {
     public class Success<T> : Result<T>
@@ -7,14 +9,14 @@ namespace Result.Test
         public Success(T value)
         {
             _value = value;
-            IsSuccess = true;
         }
 
-        public bool IsSuccess { get; }
+        public virtual bool IsSuccess() => true;
+        public virtual T GetValue() => _value;
 
-        public T Unwrap()
+        public virtual string GetError()
         {
-            return _value;
+            throw new InvalidCastException();
         }
     }
 }

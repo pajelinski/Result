@@ -10,7 +10,7 @@ namespace Result.Test
         public void GivenSuccess_IsSuccesShouldReturn_True()
         {
             var result = ReturnSuccessWithString(string.Empty);
-            Assert.That(result.IsSuccess, Is.True);
+            Assert.That(result.IsSuccess(), Is.True);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace Result.Test
         public void GivenFailure_IsSuccessShouldReturn_False()
         {
             var result = ReturnFailureWithString(string.Empty);
-            Assert.That(result.IsSuccess, Is.False);
+            Assert.That(result.IsSuccess(), Is.False);
         }
 
         [Test]

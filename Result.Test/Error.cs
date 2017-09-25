@@ -1,19 +1,22 @@
+using System;
+
 namespace Result.Test
 {
     public class Error<T>: Result<T>
     {
-        private readonly string _erroMessage;
+        private readonly string _errorMessage;
 
-        public Error(string erroMessage)
+        public Error(string errorMessage)
         {
-            IsSuccess = false;
-            _erroMessage = erroMessage;
+            _errorMessage = errorMessage;
         }
         
-        public bool IsSuccess { get; }
-        public string Unwrap()
+        public virtual bool IsSuccess() => false;
+        public virtual T GetValue()
         {
-            return _erroMessage;
+            throw new InvalidCastException();
         }
+
+        public virtual string GetError() => _errorMessage;
     }
 }

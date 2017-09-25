@@ -1,7 +1,9 @@
 ﻿namespace Result.Test
 {
-    public interface Result<T>
+    public interface Result<out T>
     {
-        bool IsSuccess { get; }
+        bool IsSuccess();
+        T GetValue();
+        string GetError();
     }
 }
