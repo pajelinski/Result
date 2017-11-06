@@ -11,8 +11,8 @@ namespace Result.Test
             _value = value;
         }
 
-        public virtual bool IsSuccess() => true;
-        public virtual T GetValue() => _value;
+        public bool IsSuccess() => true;
+        public T GetValue() => _value;
 
         public virtual string GetError()
         {

@@ -11,8 +11,8 @@ namespace Result.Test
             _errorMessage = errorMessage;
         }
         
-        public virtual bool IsSuccess() => false;
-        public virtual T GetValue()
+        public bool IsSuccess() => false;
+        public T GetValue()
         {
             throw new InvalidCastException();
         }
