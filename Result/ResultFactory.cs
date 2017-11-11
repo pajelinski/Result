@@ -7,7 +7,7 @@
             return new Success<T>(value);
         }
 
-        public static Result<T> CreateFailure<T>(string errorMessage)
+        public static Result<T> CreateError<T>(string errorMessage)
         {
             return new Error<T>(errorMessage);
         }
