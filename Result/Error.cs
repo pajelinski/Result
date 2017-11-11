@@ -2,7 +2,7 @@ using System;
 
 namespace Result.Test
 {
-    public class Error<T>: Result<T>
+    public struct Error<T>: Result<T>
     {
         private readonly string _errorMessage;
 
@@ -12,11 +12,7 @@ namespace Result.Test
         }
         
         public bool IsSuccess() => false;
-        public T GetValue()
-        {
-            throw new InvalidCastException();
-        }
-
-        public virtual string GetError() => _errorMessage;
+        public T GetValue() => throw new InvalidCastException();
+        public string GetError() => _errorMessage;
     }
 }

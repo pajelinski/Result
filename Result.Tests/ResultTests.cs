@@ -9,14 +9,25 @@ namespace Result.Test
         class Sucess
         {
             [Test]
-            public void GivenSuccess_IsSuccessReturns_True()
+            public void GivenVoidFunction_WhenFunctionReturnsEmptySuccess_IsSuccessReturnsTrue()
             {
-                var result = ReturnSuccessWithString(string.Empty);
-                Assert.That(result.IsSuccess(), Is.True);
+                Assert.That(ReturnSuccessWithNothing().IsSuccess(), Is.True);
             }
 
             [Test]
-            public void GivenSuccess_GetValueReturns_test()
+            public void GivenVoidFunction_WhenFunctionReturnsEmptySuccess__GetValueReturnsNothing()
+            {
+                Assert.That(ReturnSuccessWithNothing().GetValue(), Is.TypeOf<Nothing>());
+            }
+
+            [Test]
+            public void WhenFunctionReturnsSuccess_IsSuccessReturns_True()
+            {
+                Assert.That(ReturnSuccessWithString(string.Empty).IsSuccess(), Is.True);
+            }
+
+            [Test]
+            public void WhenFunctionReturnsSuccess_GetValueReturns_test()
             {
                 const string expected = "test";
                 var result = ReturnSuccessWithString(expected).GetValue();
@@ -24,23 +35,28 @@ namespace Result.Test
             }
 
             [Test]
-            public void GivenSuccess_WhenGetErrorIsCalled_ThrowsInvalidCastException()
+            public void WhenFunctionReturnsSuccess_GetErrorThrowsInvalidCastException()
             {
-                Assert.That(() => ReturnSuccessWithString("").GetError(), Throws.InstanceOf<InvalidCastException>());
+                Assert.That(() => ReturnSuccessWithString(string.Empty).GetError(), Throws.InstanceOf<InvalidCastException>());
             }
         }
 
         class Error
         {
             [Test]
-            public void GivenFailure_IsSuccessReturns_False()
+            public void GivenVoidFunction_WhenFunctionReturnsEmptyError_IsSuccessReturnsFalse()
             {
-                var result = ReturnErrorWithString(string.Empty);
-                Assert.That(result.IsSuccess(), Is.False);
+                Assert.That(ReturnErrorWithNothing(string.Empty).IsSuccess(), Is.False);
             }
 
             [Test]
-            public void GivenError_GetErrorReturns_test()
+            public void WhenFunctionReturnsError_IsSuccessReturnsFalse()
+            {
+                Assert.That(ReturnErrorWithString(string.Empty).IsSuccess(), Is.False);
+            }
+
+            [Test]
+            public void WhenFunctionReturnsError_GetErrorReturns_test()
             {
                 const string expected = "test";
                 var result = ReturnErrorWithString(expected).GetError();
@@ -48,20 +64,18 @@ namespace Result.Test
             }
 
             [Test]
-            public void GivenError_WhenGetValueIsCalled_ThrowsInvalidCastException()
+            public void WhenFunctionReturnsError_GetValueThrowsInvalidCastException()
             {
                 Assert.That(() => ReturnErrorWithString("").GetValue(), Throws.InstanceOf<InvalidCastException>());
             }
         }
+       
+        private static Result<Nothing> ReturnSuccessWithNothing() => ResultFactory.CreateSuccess();
 
-        private static Result<string> ReturnSuccessWithString(string value)
-        {
-            return ResultFactory.CreateSuccess(value);
-        }
+        private static Result<Nothing> ReturnErrorWithNothing(string errorMessage) => ResultFactory.CreateError(errorMessage);
 
-        private static Result<string> ReturnErrorWithString(string value)
-        {
-            return ResultFactory.CreateError<string>(value);
-        }
+        private static Result<string> ReturnSuccessWithString(string value) => ResultFactory.CreateSuccess(value);
+
+        private static Result<string> ReturnErrorWithString(string errorMessage) => ResultFactory.CreateError<string>(errorMessage);
     }
 }
