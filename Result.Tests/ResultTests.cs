@@ -69,7 +69,47 @@ namespace Result.Test
                 Assert.That(() => ReturnErrorWithString("").GetValue(), Throws.InstanceOf<InvalidCastException>());
             }
         }
-       
+
+        class ContinueWith
+        {
+            [Test]
+            public void WhenContinautionFunctionReturnsSuccess_IsSuccessReturnsTrue()
+            {
+                var result = ReturnSuccessWithNothing().ContinueWith(() => ReturnSuccessWithNothing());
+                Assert.That(result.IsSuccess(), Is.True);
+            }
+
+            [Test]
+            public void WhenContinautionFunctionReturnsError_IsSuccessReturnsFalse()
+            {
+                var result = ReturnSuccessWithNothing().ContinueWith(() => ReturnErrorWithNothing(string.Empty));
+                Assert.That(result.IsSuccess(), Is.False);
+            }
+
+            [Test]
+            public void WhenContinautionFunctionReturnsSuccess_GetValueReturns_test2()
+            {
+                var result = ReturnSuccessWithString("test1").ContinueWith(() => ReturnSuccessWithString("test2"));
+                Assert.That(result.GetValue, Is.EqualTo("test2"));
+            }
+
+            [Test]
+            public void WhenContinuationFunctionPassPreviousResult_GetValueReturns_test()
+            {
+                var result = ReturnSuccessWithString("test1").ContinueWith(r => PassValue(r));
+                Assert.That(result.GetValue, Is.EqualTo("test1"));
+            }
+
+            [Test]
+            public void GivenThatFirsResultIsError_WhenContinuationFunctionPassPreviousResult_GetValueReturns_error()
+            {
+                var result = ReturnErrorWithString("error").ContinueWith(r => PassValue(r));
+                Assert.That(result.GetError, Is.EqualTo("error"));
+            }
+        }
+
+        private static Result<T> PassValue<T>(Result<T> result) => ResultFactory.CreateSuccess(result.GetValue());
+
         private static Result<Nothing> ReturnSuccessWithNothing() => ResultFactory.CreateSuccess();
 
         private static Result<Nothing> ReturnErrorWithNothing(string errorMessage) => ResultFactory.CreateError(errorMessage);

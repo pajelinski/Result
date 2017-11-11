@@ -2,7 +2,7 @@ using System;
 
 namespace Result.Test
 {
-    public struct Success<T> : Result<T>
+    public class Success<T> : Result<T>
     {
         private readonly T _value;
 
@@ -14,5 +14,7 @@ namespace Result.Test
         public bool IsSuccess() => true;
         public T GetValue() => _value;
         public string GetError() => throw new InvalidCastException();
+        public Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation) => continuation();
+        public Result<Y> ContinueWith<Y>(Func<Result<T>, Result<Y>> continuation) => continuation(this);
     }
 }
