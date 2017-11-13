@@ -1,0 +1,10 @@
+language: csharp
+solution: Result.sln
+
+mono: none
+dotnet: 2.0.2
+dist: trusty
+script:
+ - dotnet restore
+ - dotnet build 
+ - dotnet test
