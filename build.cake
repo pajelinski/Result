@@ -6,12 +6,6 @@ var testProjectPattern = "./**/*Tests.csproj";
 
 var tempPath = "./tmp";
 var testResultsPath = "./testResults";
-var artifactsPath = "./artifacts";
-var artifactFile = $"{artifactsPath}/Result.zip";
-
-var packageVersion = "1.0.0.0";
-var informationalVersion = "1.0.0.0-local";
-
 
 Task("Clean")
     .Does(() => {
