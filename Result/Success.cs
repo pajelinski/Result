@@ -1,8 +1,8 @@
-using System;
-
-namespace Result.Test
+namespace Result
 {
-    public class Success<T> : Result<T>
+    using System;
+
+    public class Success<T> : IResult<T>
     {
         private readonly T _value;
 
@@ -14,7 +14,7 @@ namespace Result.Test
         public bool IsSuccess() => true;
         public T GetValue() => _value;
         public string GetError() => throw new InvalidCastException();
-        public Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation) => continuation();
-        public Result<Y> ContinueWith<Y>(Func<Result<T>, Result<Y>> continuation) => continuation(this);
+        public IResult<Y> ContinueWith<Y>(Func<IResult<Y>> continuation) => continuation();
+        public IResult<Y> ContinueWith<Y>(Func<IResult<T>, IResult<Y>> continuation) => continuation(this);
     }
 }

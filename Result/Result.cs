@@ -1,13 +1,13 @@
-﻿using System;
-
-namespace Result.Test
+﻿namespace Result
 {
-    public interface Result<out T>
+    using System;
+
+    public interface IResult<out T>
     {
         bool IsSuccess();
         T GetValue();
         string GetError();
-        Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation);
-        Result<Y> ContinueWith<Y>(Func<Result<T>,Result<Y>> continuation);
+        IResult<Y> ContinueWith<Y>(Func<IResult<Y>> continuation);
+        IResult<Y> ContinueWith<Y>(Func<IResult<T>,IResult<Y>> continuation);
     }
 }
