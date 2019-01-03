@@ -63,13 +63,9 @@ var isSucces = result.IsError();
 You can chain functions that returns Result type using cotinuations:
 
 ```cs
-private static IResult<string> ReturnSuccessWithString(string value) => ResultFactory.CreateSuccess(value);
-
-private static IResult<string> ReturnErrorWithString(string errorMessage) => ResultFactory.CreateError<string>(errorMessage);
-
 public IResult<Nothing> SomeFunction(IResult<Nothing> result)
 {
-    return result.ContinueWith(() => OtherFunction());
+    return result.ContinueWith(() => ResultFactory.CreateSuccess());
 }
 ```
 
