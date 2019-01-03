@@ -49,6 +49,7 @@ var upackedValue = result.GetError();
 ```
 
 If you call GetValue() method on Error or GetError on Success, InvalidCastException will be thrown. 
+
 It is really easy to check if result is success:
 
 ```cs
