@@ -11,9 +11,9 @@ This library offers an elegant and efficient way of handling errors known as rai
 Result object holds the desired value or error message. Thanks to that, Result allows you to deal with errors without resorting to using exceptions.
 It's really easy to use and can be used alongside exceptions in order to build a system where known errors are handled using Result type and unknown errors are thrown as exceptions.
 
-## How it wowrks?
+## How it works?
 
-The library contains two types that implements IResult<T> interface - Success and Error.
+The library contains two types that implement IResult<T> interface - Success and Error.
 
 ## Getting started
 
@@ -42,7 +42,7 @@ To unpack value you have to call GetValue() method:
 var unpackedValue = result.GetValue();
 ```
 
-Unpackin error is simillar:
+Unpacking error is simillar:
 
 ```cs
 var upackedValue = result.GetError();
@@ -70,4 +70,4 @@ public IResult<Nothing> SomeFunction(IResult<Nothing> result)
 }
 ```
 
-When you call ContinueWith() method, it checks if result is Success or Error. If it is Success then provided function is executed. In other case error message is propageted. 
+When you call ContinueWith() method, it checks if the result is Success or Error. If it is Success then provided function is executed. In other case error message is propagated. 
