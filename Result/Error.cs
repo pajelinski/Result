@@ -2,7 +2,7 @@ namespace Result
 {
     using System;
 
-    public class Error<T>: IResult<T>
+    public class Error<T>: Result<T>
     {
         private readonly string _errorMessage;
 
@@ -12,9 +12,10 @@ namespace Result
         }
         
         public bool IsSuccess() => false;
+        public bool IsError() => !IsSuccess();
         public T GetValue() => throw new InvalidCastException();
         public string GetError() => _errorMessage;
-        public IResult<Y> ContinueWith<Y>(Func<IResult<Y>> continuation) => new Error<Y>(this._errorMessage);
-        public IResult<Y> ContinueWith<Y>(Func<IResult<T>, IResult<Y>> continuation) => new Error<Y>(this._errorMessage);
+        public Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation) => new Error<Y>(this._errorMessage);
+        public Result<Y> ContinueWith<Y>(Func<Result<T>, Result<Y>> continuation) => new Error<Y>(this._errorMessage);
     }
 }

@@ -2,12 +2,13 @@
 {
     using System;
 
-    public interface IResult<out T>
+    public interface Result<out T>
     {
         bool IsSuccess();
+        bool IsError();
         T GetValue();
         string GetError();
-        IResult<Y> ContinueWith<Y>(Func<IResult<Y>> continuation);
-        IResult<Y> ContinueWith<Y>(Func<IResult<T>,IResult<Y>> continuation);
+        Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation);
+        Result<Y> ContinueWith<Y>(Func<Result<T>,Result<Y>> continuation);
     }
 }

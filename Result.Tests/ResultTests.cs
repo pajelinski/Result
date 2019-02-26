@@ -10,6 +10,10 @@
         [Test]
         public void GivenVoidFunction_WhenFunctionReturnsEmptySuccess_IsSuccessReturnsTrue() => 
             Assert.That(ReturnSuccessWithNothing().IsSuccess(), Is.True);
+        
+        [Test]
+        public void GivenVoidFunction_WhenFunctionReturnsEmptyError_IsErrorReturnsTrue() => 
+            Assert.That(ReturnErrorWithNothing("").IsError(), Is.True);
 
         [Test]
         public void GivenVoidFunction_WhenFunctionReturnsEmptySuccess__GetValueReturnsNothing() => 
@@ -86,14 +90,14 @@
             Assert.That(result.GetError, Is.EqualTo("error"));
         }
 
-        private static IResult<T> PassValue<T>(IResult<T> result) => ResultFactory.CreateSuccess(result.GetValue());
+        private static Result<T> PassValue<T>(Result<T> result) => ResultFactory.CreateSuccess(result.GetValue());
 
-        private static IResult<Nothing> ReturnSuccessWithNothing() => ResultFactory.CreateSuccess();
+        private static Result<Nothing> ReturnSuccessWithNothing() => ResultFactory.CreateSuccess();
 
-        private static IResult<Nothing> ReturnErrorWithNothing(string errorMessage) => ResultFactory.CreateError(errorMessage);
+        private static Result<Nothing> ReturnErrorWithNothing(string errorMessage) => ResultFactory.CreateError(errorMessage);
 
-        private static IResult<string> ReturnSuccessWithString(string value) => ResultFactory.CreateSuccess(value);
+        private static Result<string> ReturnSuccessWithString(string value) => ResultFactory.CreateSuccess(value);
 
-        private static IResult<string> ReturnErrorWithString(string errorMessage) => ResultFactory.CreateError<string>(errorMessage);
+        private static Result<string> ReturnErrorWithString(string errorMessage) => ResultFactory.CreateError<string>(errorMessage);
     }
 }
