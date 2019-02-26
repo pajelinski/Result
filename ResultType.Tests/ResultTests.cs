@@ -1,8 +1,8 @@
-﻿namespace Result.Tests
+﻿namespace ResultType.Tests
 {
     using System;
     using NUnit.Framework;
-    using Result;
+    using ResultType;
 
     [TestFixture]
     public class ResultTests

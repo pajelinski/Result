@@ -1,4 +1,4 @@
-namespace Result
+namespace ResultType
 {
     using System;
 
