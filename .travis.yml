@@ -11,4 +11,4 @@ install:
 
 script:
  - dotnet build 
- - dotnet test Result.Tests/Result.Tests.csproj
+ - dotnet test ResultType.Tests/ResultType.Tests.csproj
