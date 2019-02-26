@@ -11,12 +11,11 @@ namespace ResultType
             _value = value;
         }
 
-        public bool IsSuccess() => true;
-        public bool IsError() => !IsSuccess();
+        public override bool IsSuccess() => true;
 
-        public T GetValue() => _value;
-        public string GetError() => throw new InvalidCastException();
-        public Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation) => continuation();
-        public Result<Y> ContinueWith<Y>(Func<Result<T>, Result<Y>> continuation) => continuation(this);
+        public override T GetValue() => _value;
+        public override string GetError() => throw new InvalidCastException();
+        public override Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation) => continuation();
+        public override Result<Y> ContinueWith<Y>(Func<Result<T>, Result<Y>> continuation) => continuation(this);
     }
 }
