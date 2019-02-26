@@ -1,9 +1,10 @@
 sudo: required
+dist: xenial
 language: csharp
 solution: Result.sln
 
 mono: none
-dotnet: 2.2.104
+dotnet: 2.2
 
 install:
  - dotnet restore
