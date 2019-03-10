@@ -4,14 +4,15 @@ namespace ResultType.Option
 {
     public class Some<T> : Option<T>
     {
-        public bool HasValue()
+        private readonly T _value;
+
+        public Some(T value)
         {
-            throw new NotImplementedException();
+            _value = value;
         }
 
-        public T GetValue()
-        {
-            throw new NotImplementedException();
-        }
+        public bool HasValue() => true;
+
+        public T GetValue() => _value;
     }
 }
