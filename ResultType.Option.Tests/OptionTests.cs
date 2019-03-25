@@ -1,10 +1,10 @@
-using System;
-using NUnit.Framework;
-using static NUnit.Framework.Assert;
-using static ResultType.Option.OptionFactory;
-
 namespace ResultType.Option.Tests
 {
+    using System;
+    using NUnit.Framework;
+    using static NUnit.Framework.Assert;
+    using static OptionFactory;
+    
     [TestFixture]
     public class OptionTests
     {

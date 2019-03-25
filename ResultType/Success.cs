@@ -12,10 +12,10 @@ namespace ResultType
         }
 
         public override bool IsSuccess() => true;
-
         public override T GetValue() => _value;
-        public override string GetError() => throw new InvalidCastException();
-        public override Result<Y> ContinueWith<Y>(Func<Result<Y>> continuation) => continuation();
-        public override Result<Y> ContinueWith<Y>(Func<Result<T>, Result<Y>> continuation) => continuation(this);
+        public override string GetError() => throw new InvalidOperationException("Success do not have error message!");
+        
+        public override Result<TOut> Continue<TOut>(Func<Result<TOut>> continuation) => continuation();
+        public override Result<TOut> Continue<TOut>(Func<T, Result<TOut>> continuation) => continuation(_value);
     }
 }

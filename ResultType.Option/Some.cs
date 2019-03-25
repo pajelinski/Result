@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ResultType.Option
+﻿namespace ResultType.Option
 {
     public class Some<T> : Option<T>
     {

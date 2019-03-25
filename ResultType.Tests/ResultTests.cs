@@ -3,6 +3,7 @@
     using System;
     using NUnit.Framework;
     using ResultType;
+    using static TestHelpers;
 
     [TestFixture]
     public class ResultTests
@@ -32,8 +33,8 @@
         }
 
         [Test]
-        public void WhenFunctionReturnsSuccess_GetError_ThrowsInvalidCastException() => 
-            Assert.Catch<InvalidCastException>(() => ReturnSuccessWithString(string.Empty).GetError());
+        public void WhenFunctionReturnsSuccess_GetError_ThrowsInvalidOperationException() => 
+            Assert.Catch<InvalidOperationException>(() => ReturnSuccessWithString(string.Empty).GetError(), "Success do not have error message!");
 
         [Test]
         public void GivenVoidFunction_WhenFunctionReturnsEmptyError_IsSuccessReturnsFalse() => 
@@ -52,52 +53,7 @@
         }
 
         [Test]
-        public void WhenFunctionReturnsError_GetValueThrowsInvalidCastException() => 
-            Assert.Catch<InvalidCastException>(() => ReturnErrorWithString("").GetValue());
-
-        [Test]
-        public void WhenContinautionFunctionReturnsSuccess_IsSuccessReturnsTrue()
-        {
-            var result = ReturnSuccessWithNothing().ContinueWith(ReturnSuccessWithNothing);
-            Assert.That(result.IsSuccess(), Is.True);
-        }
-
-        [Test]
-        public void WhenContinautionFunctionReturnsError_IsSuccessReturnsFalse()
-        {
-            var result = ReturnSuccessWithNothing().ContinueWith(() => ReturnErrorWithNothing(string.Empty));
-            Assert.That(result.IsSuccess(), Is.False);
-        }
-
-        [Test]
-        public void WhenContinautionFunctionReturnsSuccess_GetValueReturns_test2()
-        {
-            var result = ReturnSuccessWithString("test1").ContinueWith(() => ReturnSuccessWithString("test2"));
-            Assert.That(result.GetValue, Is.EqualTo("test2"));
-        }
-
-        [Test]
-        public void WhenContinuationFunctionPassPreviousResult_GetValueReturns_test()
-        {
-            var result = ReturnSuccessWithString("test1").ContinueWith(PassValue);
-            Assert.That(result.GetValue, Is.EqualTo("test1"));
-        }
-
-        [Test]
-        public void GivenThatFirsResultIsError_WhenContinuationFunctionPassPreviousResult_GetValueReturns_error()
-        {
-            var result = ReturnErrorWithString("error").ContinueWith(PassValue);
-            Assert.That(result.GetError, Is.EqualTo("error"));
-        }
-
-        private static Result<T> PassValue<T>(Result<T> result) => ResultFactory.CreateSuccess(result.GetValue());
-
-        private static Result<Nothing> ReturnSuccessWithNothing() => ResultFactory.CreateSuccess();
-
-        private static Result<Nothing> ReturnErrorWithNothing(string errorMessage) => ResultFactory.CreateError(errorMessage);
-
-        private static Result<string> ReturnSuccessWithString(string value) => ResultFactory.CreateSuccess(value);
-
-        private static Result<string> ReturnErrorWithString(string errorMessage) => ResultFactory.CreateError<string>(errorMessage);
+        public void WhenFunctionReturnsError_GetValueThrowsInvalidOperationException() => 
+            Assert.Catch<InvalidOperationException>(() => ReturnErrorWithString("").GetValue(), "Error do not contain value!");
     }
 }

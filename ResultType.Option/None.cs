@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace ResultType.Option
+﻿namespace ResultType.Option
 {
+    using System;
+
     public class None<T> : Option<T>
     {
         public bool HasValue() => false;
