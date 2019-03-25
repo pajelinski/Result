@@ -12,3 +12,4 @@ install:
 script:
  - dotnet build 
  - dotnet test ResultType.Tests/ResultType.Tests.csproj
+ - dotnet test ResultType.Option.Tests/ResultType.Option.Tests.csproj
