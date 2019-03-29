@@ -13,7 +13,7 @@ It's really easy to use and can be used alongside exceptions in order to build a
 
 ## How it works?
 
-The library contains two types that implement IResult<T> interface - Success and Error.
+The library contains two types that implement Result<T> - Success and Error.
 
 ## Getting started
 
@@ -48,7 +48,7 @@ Unpacking error is simillar:
 var upackedValue = result.GetError();
 ```
 
-If you call GetValue() method on Error or GetError on Success, InvalidCastException will be thrown. 
+If you call GetValue() method on Error or GetError on Success, InvalidOperationException will be thrown. 
 
 It is really easy to check if result is success:
 
@@ -64,10 +64,34 @@ var isSucces = result.IsError();
 You can chain functions that returns Result type using cotinuations:
 
 ```cs
-public IResult<Nothing> SomeFunction(IResult<Nothing> result)
+public Result<Nothing> SomeFunction(Result<Nothing> result)
 {
-    return result.ContinueWith(() => ResultFactory.CreateSuccess());
+    return result.Continue(() => ResultFactory.CreateSuccess());
 }
 ```
 
-When you call ContinueWith() method, it checks if the result is Success or Error. If it is Success then provided function is executed. In other case error message is propagated. 
+When you call Continue() method, it checks if the result is Success or Error. If it is Success then provided lambda expresion is executed. In other case error message is propagated.
+
+It's possible to pass value from previous expresion as argument.
+
+```cs
+public Result<string> SomeFunction(Result<Nothing> result)
+{
+    return result.Continue(s => ResultFactory.CreateSuccess(s));
+}
+```
+Tasks thar returns Result can also be chained using Continue method.
+
+```cs
+public async Task<Result<string>> SomeFunction(Result<Nothing> result)
+{
+    return await result.Continue(s => ResultFactory.CreateSuccess(s));
+}
+```
+
+```cs
+public async Task<Result<string>> SomeFunction(Result<Nothing> result)
+{
+    return await result.Continue(async s => await SomeAsyncFunction(s));
+}
+```
