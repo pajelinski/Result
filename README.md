@@ -5,19 +5,19 @@
 | Travis | [![Build Status](https://travis-ci.org/pajelinski/Result.svg?branch=master)](https://travis-ci.org/pajelinski/Result) |     
 
 
-**Result** is an implementation of Result type for C#.
+**ResultType** is an implementation of Result type for C#.
 
 This library offers an elegant and efficient way of handling errors known as railway programming.
-Result object holds the desired value or error message. Thanks to that, Result allows you to deal with errors without resorting to using exceptions.
-It's really easy to use and can be used alongside exceptions in order to build a system where known errors are handled using Result type and unknown errors are thrown as exceptions.
+Result object holds the desired value or error message. Thanks to that, ResultType allows you to deal with errors without resorting to using exceptions.
+It's really easy to use and can be used alongside exceptions in order to build a system where expected errors are handled using ResultType and unexpected errors are thrown as exceptions.
 
 ## How it works?
 
-The library contains two types that implement Result<T> - Success and Error.
+The library contains two types that implement Result<T> abstract class - Success and Error.
 
 ## Getting started
 
-The basic feature of Result is holding value or error.
+The basic feature of ResultType is holding value or error.
 Let's look at an examples:
 
 ```cs
